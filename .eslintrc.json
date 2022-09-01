@@ -16,7 +16,7 @@
       "warn",
       {
         "vars": "all",
-        "args": "all",
+        "args": "none ",
         "ignoreRestSiblings": false,
         "caughtErrors": "all"
       }
