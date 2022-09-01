@@ -1,12 +1,15 @@
 {
   "name": "basket-app-back",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "./app/server.js",
   "repository": "https://github.com/culozik/basket-app-back.git",
   "author": "",
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "cross-env NODE_ENV=production node ./app/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./app/server.js",
+    "lint": "eslint **/* .js",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -28,7 +31,7 @@
     "prettier": "2.7.1"
   },
   "lint-staged": {
-    "*.{js}": "eslint",
+    "*.js": "eslint",
     "*.{js,md}": "prettier --write"
   }
 }
