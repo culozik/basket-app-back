@@ -13,10 +13,10 @@
   "rules": {
     "no-const-assign": "error",
     "no-unused-vars": [
-      "warn",
+      "error",
       {
         "vars": "all",
-        "args": "none ",
+        "args": "none",
         "ignoreRestSiblings": false,
         "caughtErrors": "all"
       }
