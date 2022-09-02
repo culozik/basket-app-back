@@ -3,13 +3,17 @@ const cors = require('cors');
 require('dotenv').config;
 
 const authRouter = require('./routes/api/auth');
+const userRouter = require('./routes/api/user');
+const storageRouter = require('./routes/api/dataStorage');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/users', authRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
+app.use('/api/storage', storageRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });

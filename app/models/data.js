@@ -1,18 +1,10 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 
-const championshipData = Schema({
-  championship: String,
-  url: [
-    {
-      type: String,
-    },
-  ],
-});
-
 const dataSchema = Schema(
   {
-    data: [championshipData],
+    championship: { type: String },
+    data: [{ type: String }],
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
@@ -23,8 +15,8 @@ const dataSchema = Schema(
 );
 
 const dataJoiSchema = Joi.object({
-  url: Joi.array().items(Joi.string()).min(1).required(),
-  data: Joi.array().items(Joi.object()),
+  championship: Joi.string(),
+  data: Joi.array().items(Joi.string()),
 });
 
 const Data = model('data', dataSchema);
