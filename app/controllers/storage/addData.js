@@ -4,7 +4,7 @@ const addData = async (req, res, next) => {
   const { championship, data } = req.body;
   const { _id } = req.user;
 
-  const isChampIn = await Data.findOne({ championship }).exec();
+  const isChampIn = await Data.findOne({ championship, owner: _id });
 
   if (!isChampIn) {
     const champ = await Data.create({
@@ -32,7 +32,10 @@ const addData = async (req, res, next) => {
   };
 
   const newSetOfUrl = checkData();
-  await Data.findOneAndUpdate({ championship }, { data: newSetOfUrl });
+  await Data.findOneAndUpdate(
+    { championship, owner: _id },
+    { data: newSetOfUrl }
+  );
 
   res.status(201).send();
 };

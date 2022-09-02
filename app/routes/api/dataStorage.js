@@ -23,4 +23,19 @@ router.put(
   ctrlWrapper(ctrl.clearDataList)
 );
 
+router.post(
+  '/teamname',
+  authenticate,
+  validateBody(dataJoiSchema),
+  ctrlWrapper(ctrl.addTeamName)
+);
+
+router.get(
+  '/teamname/:championship',
+  authenticate,
+  ctrlWrapper(ctrl.getTeamNames)
+);
+
+router.patch('/teamname', authenticate, ctrlWrapper(ctrl.changeTeamName));
+
 module.exports = router;

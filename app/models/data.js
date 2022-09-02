@@ -5,6 +5,7 @@ const dataSchema = Schema(
   {
     championship: { type: String },
     data: [{ type: String }],
+    teamNames: [{ type: Object }],
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
@@ -17,6 +18,7 @@ const dataSchema = Schema(
 const dataJoiSchema = Joi.object({
   championship: Joi.string(),
   data: Joi.array().items(Joi.string()),
+  teamNames: Joi.array().items(Joi.object()),
 });
 
 const Data = model('data', dataSchema);
