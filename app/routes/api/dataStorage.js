@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { storage: ctrl } = require('../../controllers');
-const { dataJoiSchema } = require('../../models/data');
+const { addUrlJoiSchema } = require('../../models/data');
 const ctrlWrapper = require('../../helpers/ctrlWrapper');
 const authenticate = require('../../middleware/authenticate');
 const validateBody = require('../../middleware/validateBody');
@@ -11,7 +11,7 @@ const router = express.Router();
 router.post(
   '/add',
   authenticate,
-  validateBody(dataJoiSchema),
+  validateBody(addUrlJoiSchema),
   ctrlWrapper(ctrl.addData)
 );
 
@@ -26,7 +26,7 @@ router.put(
 router.post(
   '/teamname',
   authenticate,
-  validateBody(dataJoiSchema),
+  // validateBody(dataJoiSchema),
   ctrlWrapper(ctrl.addTeamName)
 );
 

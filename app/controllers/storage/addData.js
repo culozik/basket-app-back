@@ -1,41 +1,67 @@
-const { Data } = require('../../models/data');
+const { Championship } = require('../../models/data');
 
 const addData = async (req, res, next) => {
-  const { championship, data } = req.body;
+  const { championship, leagueName, url } = req.body;
   const { _id } = req.user;
 
-  const isChampIn = await Data.findOne({ championship, owner: _id });
+  const isChampIn = await Championship.findOne({ championship, owner: _id });
+
+  const leagueQuery = {
+    championship,
+    'league.leagueName': leagueName,
+    owner: _id,
+  };
+  const isLeagueIn = await Championship.findOne(leagueQuery);
+
+  // console.log('🚀 ~ isChampIn', isChampIn);
+  // console.log('🚀 ~ test', isLeagueIn);
 
   if (!isChampIn) {
-    const champ = await Data.create({
+    const champ = await Championship.create({
       championship,
-      data,
+      league: [{ leagueName, url }],
       owner: _id,
     });
+    console.log(champ.owner);
     res.status(201).json({
       championship: champ.championship,
-      data: champ.data,
+      league: champ.league,
       owner: champ.owner,
     });
     return;
   }
 
-  const checkData = () => {
-    const dataAfterCheck = [...isChampIn.data];
-    data.forEach(element => {
-      const filteredData = isChampIn.data.filter(val => val === element);
-      if (filteredData.length < 1) {
-        dataAfterCheck.push(element);
+  if (isChampIn && !isLeagueIn) {
+    const newLeagueSet = { leagueName, url };
+    await Championship.findOneAndUpdate(
+      { championship, owner: _id },
+      {
+        $addToSet: { league: newLeagueSet },
       }
-    });
-    return dataAfterCheck;
-  };
+    );
+  }
+  // const leagueInDB = isChampIn.league.find(el => el.leagueName === leagueName);
 
-  const newSetOfUrl = checkData();
-  await Data.findOneAndUpdate(
-    { championship, owner: _id },
-    { data: newSetOfUrl }
-  );
+  // // console.log('🚀 ~ leagueInDB', leagueInDB);
+
+  // const checkData = () => {
+  //   const dataAfterCheck = [...leagueInDB.url];
+  //   url.forEach(element => {
+  //     const filteredData = leagueInDB.url.filter(val => val === element);
+  //     if (filteredData.length < 1) {
+  //       dataAfterCheck.push(element);
+  //     }
+  //   });
+  //   return dataAfterCheck;
+  // };
+
+  // const newSetOfUrl = checkData();
+  // console.log('🚀 ~ newSetOfUrl', newSetOfUrl);
+
+  // await Championship.findOneAndUpdate(
+  //   { championship, owner: _id },
+  //   { url: newSetOfUrl }
+  // );
 
   res.status(201).send();
 };

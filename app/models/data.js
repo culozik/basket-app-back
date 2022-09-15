@@ -1,11 +1,18 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 
-const dataSchema = Schema(
+const ChampionshipSchema = Schema(
   {
     championship: { type: String },
-    data: [{ type: String }],
-    teamNames: [{ type: Object }],
+    league: [
+      {
+        leagueName: { type: String },
+        url: [{ type: String }],
+        teamNames: [
+          { officialName: { type: String }, customName: { type: String } },
+        ],
+      },
+    ],
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
@@ -15,15 +22,15 @@ const dataSchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
-const dataJoiSchema = Joi.object({
+const addUrlJoiSchema = Joi.object({
   championship: Joi.string(),
-  data: Joi.array().items(Joi.string()),
-  teamNames: Joi.array().items(Joi.object()),
+  leagueName: Joi.string(),
+  url: Joi.array().items(Joi.string()),
 });
 
-const Data = model('data', dataSchema);
+const Championship = model('championship', ChampionshipSchema);
 
 module.exports = {
-  Data,
-  dataJoiSchema,
+  Championship,
+  addUrlJoiSchema,
 };
