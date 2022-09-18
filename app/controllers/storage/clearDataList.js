@@ -1,16 +1,12 @@
-const createError = require('http-errors');
-const { Data } = require('../../models/data');
+const { Championship } = require('../../models/data');
 
 const clearDataList = async (req, res, next) => {
-  const { championship } = req.params;
+  const { _id } = req.user;
 
-  const isChampIn = await Data.findOne({ championship }).exec();
-
-  if (!isChampIn) {
-    throw createError(400, 'No such championship');
-  }
-
-  await Data.findOneAndUpdate({ championship }, { data: [] });
+  await Championship.updateMany(
+    { owner: _id },
+    { $set: { 'league.$[].url': [] } }
+  );
 
   res.status(200).send();
 };

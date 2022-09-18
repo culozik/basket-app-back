@@ -17,11 +17,7 @@ router.post(
 
 router.get('/list/:championship', authenticate, ctrlWrapper(ctrl.getDataList));
 
-router.put(
-  '/list/:championship',
-  authenticate,
-  ctrlWrapper(ctrl.clearDataList)
-);
+router.put('/clear', authenticate, ctrlWrapper(ctrl.clearDataList));
 
 router.post(
   '/teamname',
