@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { storage: ctrl } = require('../../controllers');
-const { addUrlJoiSchema } = require('../../models/data');
+const { joiSchema } = require('../../models/data');
 const ctrlWrapper = require('../../helpers/ctrlWrapper');
 const authenticate = require('../../middleware/authenticate');
 const validateBody = require('../../middleware/validateBody');
@@ -9,10 +9,16 @@ const validateBody = require('../../middleware/validateBody');
 const router = express.Router();
 
 router.post(
-  '/add',
+  '/league',
   authenticate,
-  validateBody(addUrlJoiSchema),
-  ctrlWrapper(ctrl.addData)
+  validateBody(joiSchema.addLeague),
+  ctrlWrapper(ctrl.addLeague)
+);
+router.post(
+  '/addurl',
+  authenticate,
+  validateBody(joiSchema.addUrl),
+  ctrlWrapper(ctrl.addUrl)
 );
 
 router.get('/list/:championship', authenticate, ctrlWrapper(ctrl.getDataList));
@@ -22,7 +28,7 @@ router.put('/clear', authenticate, ctrlWrapper(ctrl.clearDataList));
 router.post(
   '/teamname',
   authenticate,
-  // validateBody(dataJoiSchema),
+  validateBody(joiSchema.addTeam),
   ctrlWrapper(ctrl.addTeamName)
 );
 
@@ -32,6 +38,18 @@ router.get(
   ctrlWrapper(ctrl.getTeamNames)
 );
 
-router.patch('/teamname', authenticate, ctrlWrapper(ctrl.changeTeamName));
+router.patch(
+  '/teamname',
+  authenticate,
+  validateBody(joiSchema.renameTeam),
+  ctrlWrapper(ctrl.changeTeamName)
+);
+
+router.delete(
+  '/teamname',
+  authenticate,
+  validateBody(joiSchema.deleteTeam),
+  ctrlWrapper(ctrl.deleteTeam)
+);
 
 module.exports = router;

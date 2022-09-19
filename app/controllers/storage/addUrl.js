@@ -1,6 +1,8 @@
+const createError = require('http-errors');
+
 const { Championship } = require('../../models/data');
 
-const addLeague = async (req, res, next) => {
+const addUrl = async (req, res, next) => {
   const { championship, league, url } = req.body;
   const { _id } = req.user;
 
@@ -13,12 +15,7 @@ const addLeague = async (req, res, next) => {
   const isChampIn = await Championship.findOne(leagueQuery);
 
   if (!isChampIn) {
-    await Championship.create({
-      championship,
-      league,
-      url,
-      owner: _id,
-    });
+    throw createError(400, 'No such league.');
   }
 
   await Championship.findOneAndUpdate(leagueQuery, {
@@ -28,4 +25,4 @@ const addLeague = async (req, res, next) => {
   res.status(201).send();
 };
 
-module.exports = addLeague;
+module.exports = addUrl;

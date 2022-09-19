@@ -1,34 +1,28 @@
 const createError = require('http-errors');
-const { Data } = require('../../models/data');
+const { Championship } = require('../../models/data');
 
 const addTeamName = async (req, res, next) => {
-  const { championship, teamNames } = req.body;
+  const { championship, league, teamName } = req.body;
   const { _id } = req.user;
 
-  const isChampIn = await Data.findOne({ championship, owner: _id });
+  const champQuery = {
+    championship,
+    league,
+    owner: _id,
+  };
+
+  const isChampIn = await Championship.findOne(champQuery);
 
   if (!isChampIn) {
     throw createError(400, 'No such championship');
   }
-
-  const checkData = () => {
-    const dataAfterCheck = [...isChampIn.teamNames];
-    teamNames.forEach(team => {
-      const filteredData = isChampIn.teamNames.filter(
-        val => val.fullname === team.fullname
-      );
-      if (filteredData.length < 1) {
-        dataAfterCheck.push(team);
-      }
-    });
-    return dataAfterCheck;
-  };
-
-  const newSetOfTeamNames = checkData();
-  await Data.findOneAndUpdate(
-    { championship, owner: _id },
-    { teamNames: newSetOfTeamNames }
-  );
+  await Championship.findOneAndUpdate(champQuery, {
+    $push: {
+      teamNames: {
+        $each: teamName,
+      },
+    },
+  });
 
   res.status(201).send();
 };

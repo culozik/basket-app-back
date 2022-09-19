@@ -1,24 +1,32 @@
 const createError = require('http-errors');
-const { Data } = require('../../models/data');
+const { Championship } = require('../../models/data');
 
 const changeTeamName = async (req, res, next) => {
-  const { championship, teamName } = req.body;
-  const { _id } = req.user;
+  const { league, teamName } = req.body;
 
-  const isChampIn = await Data.findOne({ championship, owner: _id });
+  const isChampIn = await Championship.findOne({
+    league,
+  });
 
   if (!isChampIn) {
     throw createError(400, 'No such championship');
   }
 
-  const newTeamName = isChampIn.teamNames.forEach(team => {
-    if (team.fullname === teamName.fullname) {
-      team.shortname = teamName.shortName;
+  const renameResult = await Championship.findOneAndUpdate(
+    { league },
+    {
+      $set: { 'teamNames.$[elem].customName': teamName[0].customName },
+    },
+    {
+      arrayFilters: [{ 'elem.officialName': teamName[0].officialName }],
+      new: true,
     }
-  });
-  console.log(newTeamName);
+  );
+  const teamList = {
+    teamNames: renameResult.teamNames,
+  };
 
-  res.status(201).send();
+  res.status(201).json({ teamList });
 };
 
 module.exports = changeTeamName;
