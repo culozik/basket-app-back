@@ -1,18 +1,27 @@
 const createError = require('http-errors');
-const { Data } = require('../../models/data');
+const { Championship } = require('../../models/data');
 
 const getDataList = async (req, res, next) => {
   const { championship } = req.params;
   const { _id } = req.user;
+  console.log(championship);
 
-  const isChampIn = await Data.findOne({ championship, owner: _id }).exec();
+  const isChampIn = await Championship.findOne({
+    championship,
+    owner: _id,
+  });
 
   if (!isChampIn) {
     throw createError(400, 'No such championship');
   }
 
+  const resultChemp = {
+    championship: isChampIn.championship,
+    league: isChampIn.league,
+  };
+
   res.status(200).json({
-    urlList: isChampIn.data,
+    resultChemp,
   });
 };
 
