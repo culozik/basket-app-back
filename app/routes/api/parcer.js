@@ -2,9 +2,10 @@ const express = require('express');
 
 const { worker: ctrl } = require('../../controllers');
 const ctrlWrapper = require('../../helpers/ctrlWrapper');
+const authenticate = require('../../middleware/authenticate');
 
 const router = express.Router();
 
-router.post('/analyze', ctrlWrapper(ctrl.analyzeData));
+router.get('/analyze', authenticate, ctrlWrapper(ctrl.analyzeData));
 
 module.exports = router;
