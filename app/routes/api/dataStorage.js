@@ -21,6 +21,12 @@ router.patch(
   ctrlWrapper(ctrl.changeLeagueName)
 );
 
+router.delete(
+  '/league/:leagueId',
+  authenticate,
+  ctrlWrapper(ctrl.deleteLeague)
+);
+
 router.post(
   '/addurl',
   authenticate,
