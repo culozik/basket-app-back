@@ -1,12 +1,13 @@
 const createError = require('http-errors');
 const { Championship } = require('../../models/data');
 
-const deleteTeam = async (req, res, next) => {
-  const { league, teamName, id } = req.body;
+const deleteTeam = async (req, res) => {
+  const { teamId } = req.params;
 
-  const isChampIn = await Championship.findOne({
-    league,
+  const isChampIn = await Championship.find({
+    'teamNames._id': teamId,
   });
+  console.log('🚀 ~ isChampIn', isChampIn);
 
   if (!isChampIn) {
     throw createError(400, 'No such championship');
@@ -14,13 +15,14 @@ const deleteTeam = async (req, res, next) => {
 
   await Championship.findOneAndUpdate(
     {
-      league,
-      'teamNames.$.officialName': teamName,
+      'teamNames._id': teamId,
     },
-    { $pull: { teamNames: { _id: id } } }
+    { $pull: { teamNames: { _id: teamId } } }
   );
 
-  res.status(200).send();
+  const response = await Championship.findById({ _id: isChampIn[0]._id });
+
+  res.status(200).json({ response });
 };
 
 module.exports = deleteTeam;

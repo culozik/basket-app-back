@@ -58,11 +58,6 @@ router.patch(
   ctrlWrapper(ctrl.changeTeamName)
 );
 
-router.delete(
-  '/teamname',
-  authenticate,
-  validateBody(joiSchema.deleteTeam),
-  ctrlWrapper(ctrl.deleteTeam)
-);
+router.delete('/teamname/:teamId', authenticate, ctrlWrapper(ctrl.deleteTeam));
 
 module.exports = router;

@@ -49,19 +49,12 @@ const renameTeamJoiSchema = Joi.object({
   id: Joi.string(),
 });
 
-const deleteTeamJoiSchema = {
-  league: Joi.string(),
-  teamName: Joi.string(),
-  id: Joi.string(),
-};
-
 const joiSchema = {
   addLeague: addLeagueJoiSchema,
   renameLeague: changeLeagueNameJoiSchema,
   addUrl: addUrlJoiSchema,
   addTeam: addTeamNameJoiSchema,
   renameTeam: renameTeamJoiSchema,
-  deleteTeam: deleteTeamJoiSchema,
 };
 
 const Championship = model('championship', ChampionshipSchema);
