@@ -12,10 +12,9 @@ const analyzeData = async (req, res, next) => {
 
   const result = await handleUrlParser(championships);
 
-  const { startTime, finishTime, parsedData } = result;
-  const timeDuration = (finishTime - startTime) / 1000;
+  const { parsedData } = result;
 
-  res.status(200).json({ timeDuration, parsedData });
+  res.status(200).json({ parsedData });
 };
 
 module.exports = analyzeData;

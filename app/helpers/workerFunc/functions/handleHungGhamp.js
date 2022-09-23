@@ -8,11 +8,11 @@ const makeMatchDateObj = require('./makeMatchDateObj');
 const handleHungChamp = async (url, teamNames, championship) => {
   const leagueResult = [];
   for (const address of url) {
+    const matchResults = [];
     const response = await axios.get(address);
     const currentPage = response.data;
     const dom = new JSDOM(currentPage);
 
-    //   Получение content Div
     const mainDiv = dom.window.document.getElementById('boxscore_top');
 
     if (!mainDiv) {
@@ -20,11 +20,9 @@ const handleHungChamp = async (url, teamNames, championship) => {
     }
     const container = mainDiv?.children[0];
 
-    //Содержит дату матча и четверти
     const headCount =
       container?.children[0]?.children[0]?.children[1]?.children[0];
 
-    // Содержит четверти и счет
     const headResult = headCount?.children[3]?.children[2];
 
     const matchScoreDiff = headResult?.children[0]?.textContent
@@ -33,7 +31,6 @@ const handleHungChamp = async (url, teamNames, championship) => {
       .sort((a, b) => b - a)
       .reduce((a, b) => Number(a) - Number(b));
 
-    // Четверти
     const quatres = headResult?.children[1]?.textContent
       .replace(REGEXP.removeBrackets, '')
       .split(', ');
@@ -45,21 +42,18 @@ const handleHungChamp = async (url, teamNames, championship) => {
     const fourthQuarterSum =
       quatres && quatres[3].split('-').reduce((a, b) => Number(a) + Number(b));
 
-    // дата матча
     const matchDateArr = headCount?.children[0]?.textContent
       .split(' | ')[0]
       .split(' ');
 
     const matchDate = makeMatchDateObj(matchDateArr, championship);
 
-    //Таблицы
     const tablesDiv = container?.children[1]?.getElementsByClassName('nobg');
 
     if (!tablesDiv) {
       continue;
     }
 
-    const matchResults = [];
     for (const tableDiv of tablesDiv) {
       const teamNameBeforeCheck = tableDiv?.children[0]?.textContent.trim(' ');
       const customNameFromData = teamNames?.find(el => {

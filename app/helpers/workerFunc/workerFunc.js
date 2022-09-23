@@ -1,7 +1,6 @@
 const { handleHungChamp, handleSpainChamp } = require('./functions');
 
 const handleUrlParser = async (dataToParse = []) => {
-  const startTime = Date.now();
   const parsedData = [];
 
   for (const data of dataToParse) {
@@ -17,17 +16,13 @@ const handleUrlParser = async (dataToParse = []) => {
       leagueData.parsedData = [...parseResult];
     } else {
       const parseResult = await handleSpainChamp(url, teamNames, championship);
-      console.log(parseResult);
+      leagueData.parsedData = [...parseResult];
     }
 
     parsedData.push(leagueData);
   }
 
-  const finishTime = Date.now();
-
   const result = {
-    startTime,
-    finishTime,
     parsedData,
   };
 
