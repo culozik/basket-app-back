@@ -14,6 +14,13 @@ router.post(
   validateBody(joiSchema.addLeague),
   ctrlWrapper(ctrl.addLeague)
 );
+router.patch(
+  '/league',
+  authenticate,
+  validateBody(joiSchema.renameLeague),
+  ctrlWrapper(ctrl.changeLeagueName)
+);
+
 router.post(
   '/addurl',
   authenticate,

@@ -1,7 +1,7 @@
 const { Championship } = require('../../models/data');
 
-const addLeague = async (req, res, next) => {
-  const { championship, league, url } = req.body;
+const addLeague = async (req, res) => {
+  const { championship, league } = req.body;
   const { _id } = req.user;
 
   const leagueQuery = {
@@ -16,14 +16,9 @@ const addLeague = async (req, res, next) => {
     await Championship.create({
       championship,
       league,
-      url,
       owner: _id,
     });
   }
-
-  await Championship.findOneAndUpdate(leagueQuery, {
-    $addToSet: { url: url },
-  });
 
   res.status(201).send();
 };

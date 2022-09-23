@@ -23,6 +23,11 @@ const addLeagueJoiSchema = Joi.object({
   league: Joi.string(),
 });
 
+const changeLeagueNameJoiSchema = Joi.object({
+  id: Joi.string(),
+  newLeagueName: Joi.string(),
+});
+
 const addUrlJoiSchema = Joi.object({
   championship: Joi.string(),
   league: Joi.string(),
@@ -52,6 +57,7 @@ const deleteTeamJoiSchema = {
 
 const joiSchema = {
   addLeague: addLeagueJoiSchema,
+  renameLeague: changeLeagueNameJoiSchema,
   addUrl: addUrlJoiSchema,
   addTeam: addTeamNameJoiSchema,
   renameTeam: renameTeamJoiSchema,
