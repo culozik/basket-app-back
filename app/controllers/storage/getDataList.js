@@ -13,7 +13,7 @@ const getDataList = async (req, res, next) => {
     { createdAt: 0, updatedAt: 0 }
   );
 
-  if (!champList) {
+  if (champList.length < 1) {
     throw createError(400, 'No such championship');
   }
 
