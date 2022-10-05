@@ -15,7 +15,7 @@ router.post(
   ctrlWrapper(ctrl.addLeague)
 );
 router.patch(
-  '/league',
+  '/league/:leagueId',
   authenticate,
   validateBody(joiSchema.renameLeague),
   ctrlWrapper(ctrl.changeLeagueName)

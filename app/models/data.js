@@ -24,7 +24,6 @@ const addLeagueJoiSchema = Joi.object({
 });
 
 const changeLeagueNameJoiSchema = Joi.object({
-  id: Joi.string(),
   newLeagueName: Joi.string(),
 });
 
