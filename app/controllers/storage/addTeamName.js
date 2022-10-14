@@ -2,21 +2,21 @@ const createError = require('http-errors');
 const { Championship } = require('../../models/data');
 
 const addTeamName = async (req, res, next) => {
-  const { championship, league, teamName } = req.body;
-  const { _id } = req.user;
+  const { leagueId, teamName } = req.body;
+  console.log('🚀 ~ teamName', teamName);
+  console.log('🚀 ~ leagueId', leagueId);
 
   const champQuery = {
-    championship,
-    league,
-    owner: _id,
+    _id: leagueId,
   };
 
-  const isChampIn = await Championship.findOne(champQuery);
+  const isChampIn = await Championship.findById(champQuery);
 
   if (!isChampIn) {
     throw createError(400, 'No such championship');
   }
-  await Championship.findOneAndUpdate(champQuery, {
+
+  await Championship.findByIdAndUpdate(champQuery, {
     $push: {
       teamNames: {
         $each: teamName,

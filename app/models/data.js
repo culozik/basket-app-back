@@ -33,8 +33,7 @@ const addUrlJoiSchema = Joi.object({
   url: Joi.array().items(Joi.string()),
 });
 const addTeamNameJoiSchema = Joi.object({
-  championship: Joi.string(),
-  league: Joi.string(),
+  leagueId: Joi.string(),
   teamName: Joi.array().items(
     Joi.object({ officialName: Joi.string(), customName: Joi.string() })
   ),
