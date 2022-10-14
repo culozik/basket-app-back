@@ -3,8 +3,6 @@ const { Championship } = require('../../models/data');
 
 const addTeamName = async (req, res, next) => {
   const { leagueId, teamName } = req.body;
-  console.log('🚀 ~ teamName', teamName);
-  console.log('🚀 ~ leagueId', leagueId);
 
   const champQuery = {
     _id: leagueId,
