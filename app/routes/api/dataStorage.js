@@ -45,11 +45,7 @@ router.post(
   ctrlWrapper(ctrl.addTeamName)
 );
 
-router.get(
-  '/teamname/:championship',
-  authenticate,
-  ctrlWrapper(ctrl.getTeamNames)
-);
+router.get('/teamname/:leagueId', authenticate, ctrlWrapper(ctrl.getTeamNames));
 
 router.patch(
   '/teamname',
