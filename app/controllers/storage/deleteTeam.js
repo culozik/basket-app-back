@@ -7,7 +7,6 @@ const deleteTeam = async (req, res) => {
   const isChampIn = await Championship.find({
     'teamNames._id': teamId,
   });
-  console.log('🚀 ~ isChampIn', isChampIn);
 
   if (!isChampIn) {
     throw createError(400, 'No such championship');
