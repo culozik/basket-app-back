@@ -5,11 +5,16 @@ const { JSDOM } = jsdom;
 const REGEXP = require('./regExp');
 const makeMatchDateObj = require('./makeMatchDateObj');
 
+const LINK = 'https://hunbasket.hu';
+
 const handleHungChamp = async (url, teamNames, championship) => {
   const leagueResult = [];
   for (const address of url) {
     const matchResults = [];
+    if (!address.startsWith(LINK)) continue;
+
     const response = await axios.get(address);
+
     const currentPage = response.data;
     const dom = new JSDOM(currentPage);
 

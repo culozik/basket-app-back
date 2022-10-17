@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 
+const { errorFunc } = require('../helpers/errorHandler');
+
 const ChampionshipSchema = Schema(
   {
     championship: { type: String },
@@ -28,9 +30,11 @@ const changeLeagueNameJoiSchema = Joi.object({
 });
 
 const addUrlJoiSchema = Joi.object({
-  championship: Joi.string(),
-  league: Joi.string(),
-  url: Joi.array().items(Joi.string()),
+  leagueId: Joi.string(),
+  url: Joi.array()
+    .items(Joi.string())
+    .required()
+    .error(err => errorFunc(err)),
 });
 const addTeamNameJoiSchema = Joi.object({
   leagueId: Joi.string(),

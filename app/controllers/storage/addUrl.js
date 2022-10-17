@@ -3,12 +3,11 @@ const createError = require('http-errors');
 const { Championship } = require('../../models/data');
 
 const addUrl = async (req, res, next) => {
-  const { championship, league, url } = req.body;
+  const { leagueId, url } = req.body;
   const { _id } = req.user;
 
   const leagueQuery = {
-    championship,
-    league,
+    _id: leagueId,
     owner: _id,
   };
 

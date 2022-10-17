@@ -4,10 +4,14 @@ const { JSDOM } = jsdom;
 
 const makeMatchDateObj = require('./makeMatchDateObj');
 
+const LINK = 'https://baloncestoenvivo';
+
 const handleSpainChamp = async (url, teamNames, championship) => {
   const leagueResult = [];
   for (const address of url) {
     const matchResultsWithoutNames = [];
+    if (!address.startsWith(LINK)) continue;
+
     const response = await axios.get(address);
     const currentPage = response.data;
     const dom = new JSDOM(currentPage).window.document;
@@ -127,7 +131,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
 
     const result = {
       matchDate,
-      matchResult: matchResultWithNames,
+      matchResults: matchResultWithNames,
     };
 
     leagueResult.push(result);

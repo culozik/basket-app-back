@@ -7,7 +7,6 @@ const changePassword = async (req, res, next) => {
   const { currentPassword, newPassword } = req.body;
   const { _id } = req.user;
   const user = await User.findById(_id);
-  console.log(user);
 
   const comparePassword = await bcrypt.compare(currentPassword, user.password);
   if (!comparePassword) {
