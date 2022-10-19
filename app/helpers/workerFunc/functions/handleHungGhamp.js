@@ -118,6 +118,7 @@ const handleHungChamp = async (url, teamNames, championship) => {
 
     const result = {
       matchDate,
+      quatres,
       matchResults,
     };
 

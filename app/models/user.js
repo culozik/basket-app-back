@@ -13,7 +13,6 @@ const userSchema = Schema(
     nickname: {
       type: String,
       match: CODE_REGEXP.NAME,
-      required: [true, 'Nickname is required'],
     },
     email: {
       type: String,

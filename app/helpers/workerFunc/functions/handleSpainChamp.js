@@ -34,6 +34,15 @@ const handleSpainChamp = async (url, teamNames, championship) => {
       continue;
     }
 
+    const re = /\//;
+    const quartersArr = dom
+      .getElementsByClassName('box-cuartos')
+      .item(0)
+      ?.textContent?.trim()
+      ?.split(' ')
+      ?.filter(quarter => quarter.length > 3)
+      ?.map(item => item?.trim()?.slice(1)?.replace(re, '-'));
+
     const fourthQuarterSum =
       quatres &&
       quatres[3]?.children[1]?.textContent
@@ -131,6 +140,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
 
     const result = {
       matchDate,
+      quatres: quartersArr,
       matchResults: matchResultWithNames,
     };
 
