@@ -101,7 +101,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
       const cellL = Number(
         tableFooter?.children[14]?.firstChild.textContent.trim().split('/')[0]
       );
-      const cellM = cellF + cellH + cellJ / 2 - cellK / 2 + cellJ;
+      const cellM = cellF + cellH + cellJ / 2 - cellK / 2 + cellL;
       const cellN = cellE * 2 + cellG * 3 + cellI;
       const cellP = +(cellN / cellM).toFixed(2);
       const cellQ =
