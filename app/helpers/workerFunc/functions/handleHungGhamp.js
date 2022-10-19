@@ -85,7 +85,7 @@ const handleHungChamp = async (url, teamNames, championship) => {
       const cellJ = tableFooterNum[17];
       const cellK = tableFooterNum[20];
       const cellL = tableFooterNum[23];
-      const cellM = cellF + cellH + cellJ / 2 - cellK / 2 + cellJ;
+      const cellM = cellF + cellH + cellJ / 2 - cellK / 2 + cellL;
       const cellN = cellE * 2 + cellG * 3 + cellI;
       const cellP = +(cellN / cellM).toFixed(2);
       const cellQ =
