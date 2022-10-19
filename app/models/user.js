@@ -13,7 +13,6 @@ const userSchema = Schema(
     nickname: {
       type: String,
       match: CODE_REGEXP.NAME,
-      required: [true, 'Nickname is required'],
     },
     email: {
       type: String,
@@ -37,7 +36,6 @@ const JoiLoginSchema = Joi.object({
   email: Joi.string().trim().required(),
   password: Joi.string().trim().required(),
 });
-
 const User = model('user', userSchema);
 
 module.exports = { User, JoiLoginSchema };
