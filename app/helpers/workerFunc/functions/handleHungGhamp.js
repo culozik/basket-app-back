@@ -121,7 +121,6 @@ const handleHungChamp = async (url, teamNames, championship) => {
       quatres,
       matchResults,
     };
-
     leagueResult.push(result);
   }
   return leagueResult;

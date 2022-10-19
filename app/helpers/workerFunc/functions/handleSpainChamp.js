@@ -129,6 +129,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
       };
       matchResultsWithoutNames.push(tableData);
     }
+
     const matchResultWithNames = matchResultsWithoutNames.map(
       ({ results }, index) => {
         return {
