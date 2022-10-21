@@ -3,6 +3,7 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
 const makeMatchDateObj = require('./makeMatchDateObj');
+const handleTeamName = require('./handleTeamName.js');
 
 const LINK = 'https://baloncestoenvivo';
 
@@ -61,15 +62,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
 
     const teamNamesArray = Array.from(teamNamesArrayDom).map(name => {
       const teamNameBeforeCheck = name.textContent.trim();
-      const customNameFromData = teamNames?.find(el => {
-        return (
-          el.officialName.toLowerCase() === teamNameBeforeCheck.toLowerCase()
-        );
-      })?.customName;
-      const teamName =
-        customNameFromData !== undefined
-          ? customNameFromData
-          : teamNameBeforeCheck;
+      const teamName = handleTeamName(teamNames, teamNameBeforeCheck);
       return teamName;
     });
 
@@ -141,7 +134,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
 
     const result = {
       matchDate,
-      quatres: quartersArr,
+      quarters: quartersArr,
       matchResults: matchResultWithNames,
     };
 

@@ -4,6 +4,7 @@ const { JSDOM } = jsdom;
 
 const REGEXP = require('./regExp');
 const makeMatchDateObj = require('./makeMatchDateObj');
+const handleTeamName = require('./handleTeamName.js');
 
 const LINK = 'https://hunbasket.hu';
 
@@ -36,16 +37,17 @@ const handleHungChamp = async (url, teamNames, championship) => {
       .sort((a, b) => b - a)
       .reduce((a, b) => Number(a) - Number(b));
 
-    const quatres = headResult?.children[1]?.textContent
+    const quarters = headResult?.children[1]?.textContent
       .replace(REGEXP.removeBrackets, '')
       .split(', ');
 
-    if (quatres?.length > 5) {
+    if (quarters?.length > 5) {
       continue;
     }
 
     const fourthQuarterSum =
-      quatres && quatres[3].split('-').reduce((a, b) => Number(a) + Number(b));
+      quarters &&
+      quarters[3].split('-').reduce((a, b) => Number(a) + Number(b));
 
     const matchDateArr = headCount?.children[0]?.textContent
       .split(' | ')[0]
@@ -61,16 +63,7 @@ const handleHungChamp = async (url, teamNames, championship) => {
 
     for (const tableDiv of tablesDiv) {
       const teamNameBeforeCheck = tableDiv?.children[0]?.textContent.trim(' ');
-      const customNameFromData = teamNames?.find(el => {
-        return (
-          el.officialName.toLowerCase() === teamNameBeforeCheck.toLowerCase()
-        );
-      })?.customName;
-
-      const teamName =
-        customNameFromData !== undefined
-          ? customNameFromData
-          : teamNameBeforeCheck;
+      const teamName = handleTeamName(teamNames, teamNameBeforeCheck);
 
       const tableFooter = tableDiv?.children[1]?.tFoot?.rows[0]?.cells;
       const tableFooterNum = Array.from(tableFooter).map(el =>
@@ -89,7 +82,7 @@ const handleHungChamp = async (url, teamNames, championship) => {
       const cellN = cellE * 2 + cellG * 3 + cellI;
       const cellP = +(cellN / cellM).toFixed(2);
       const cellQ =
-        quatres.length === 5
+        quarters.length === 5
           ? 'OT'
           : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
           ? 'FS'
@@ -118,7 +111,7 @@ const handleHungChamp = async (url, teamNames, championship) => {
 
     const result = {
       matchDate,
-      quatres,
+      quarters,
       matchResults,
     };
     leagueResult.push(result);
