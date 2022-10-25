@@ -6,7 +6,7 @@ const makeMatchDateObj = (data, championship) => {
     month: '',
     year: '',
   };
-  if (championship === 'hungary') {
+  if (championship === 'hungary' || championship === 'japan') {
     data?.forEach((el, index) => {
       if (index === 0) {
         const val = el.slice(2, 4);
@@ -14,7 +14,7 @@ const makeMatchDateObj = (data, championship) => {
         return;
       }
       if (index === 1) {
-        const val = monthToNumber(el);
+        const val = championship === 'hungary' ? monthToNumber(el) : el;
         dateObj.month = val;
         return;
       }

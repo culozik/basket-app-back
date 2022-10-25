@@ -3,6 +3,7 @@ const handleSpainChamp = require('./handleSpainChamp');
 const handleLatviaChamp = require('./handleLatviaChamp');
 const monthToNumber = require('./montToNumber');
 const makeMatchDateObj = require('./makeMatchDateObj');
+const handleJapanChamp = require('./handleJapanChamp');
 
 module.exports = {
   monthToNumber,
@@ -10,4 +11,5 @@ module.exports = {
   handleHungChamp,
   handleSpainChamp,
   handleLatviaChamp,
+  handleJapanChamp,
 };
