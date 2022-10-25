@@ -37,9 +37,9 @@ const makeMatchDateObj = (data, championship) => {
       }
       i += 1;
     }
-  } else if (championship === 'latvia') {
+  } else if (championship === 'latvia' || championship === 'serbia') {
     const day = data.getDate().toString();
-    const month = data.getMonth().toString();
+    const month = (data.getMonth() + 1).toString();
     dateObj.day = day.length === 1 ? 0 + day : day;
     dateObj.month = month.length === 1 ? 0 + month : month;
     dateObj.year = data.getFullYear().toString().slice(-2);
