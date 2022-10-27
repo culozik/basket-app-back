@@ -1,4 +1,11 @@
-const { handleHungChamp, handleSpainChamp } = require('./functions');
+const {
+  handleHungChamp,
+  handleSpainChamp,
+  handleLatviaChamp,
+  handleJapanChamp,
+  handleSerbiaChamp,
+  handleTurkeyChamp,
+} = require('./functions');
 
 const handleUrlParser = async (dataToParse = []) => {
   const parsedData = [];
@@ -14,9 +21,23 @@ const handleUrlParser = async (dataToParse = []) => {
     if (championship === 'hungary') {
       const parseResult = await handleHungChamp(url, teamNames, championship);
       leagueData.parsedData = [...parseResult];
-    } else {
+    } else if (championship === 'spain') {
       const parseResult = await handleSpainChamp(url, teamNames, championship);
       leagueData.parsedData = [...parseResult];
+    } else if (championship === 'latvia') {
+      const parseResult = await handleLatviaChamp(url, teamNames, championship);
+      leagueData.parsedData = [...parseResult];
+    } else if (championship === 'japan') {
+      const parseResult = await handleJapanChamp(url, teamNames, championship);
+      leagueData.parsedData = [...parseResult];
+    } else if (championship === 'serbia') {
+      const parseResult = await handleSerbiaChamp(url, teamNames, championship);
+      leagueData.parsedData = [...parseResult];
+    } else if (championship === 'turkey') {
+      const parseResult = await handleTurkeyChamp(url, teamNames, championship);
+      leagueData.parsedData = [...parseResult];
+    } else {
+      console.log('Nothing');
     }
 
     parsedData.push(leagueData);
