@@ -4,6 +4,7 @@ const {
   handleLatviaChamp,
   handleJapanChamp,
   handleSerbiaChamp,
+  handleTurkeyChamp,
 } = require('./functions');
 
 const handleUrlParser = async (dataToParse = []) => {
@@ -31,6 +32,9 @@ const handleUrlParser = async (dataToParse = []) => {
       leagueData.parsedData = [...parseResult];
     } else if (championship === 'serbia') {
       const parseResult = await handleSerbiaChamp(url, teamNames, championship);
+      leagueData.parsedData = [...parseResult];
+    } else if (championship === 'turkey') {
+      const parseResult = await handleTurkeyChamp(url, teamNames, championship);
       leagueData.parsedData = [...parseResult];
     } else {
       console.log('Nothing');

@@ -40,7 +40,7 @@ const handleLatviaChamp = async (url, teamNames, championship) => {
     };
 
     const getTeamNameBeforeCheck = teamId => {
-      return matchFixture?.competitors.find(
+      return matchFixture?.competitors?.find(
         competitor => competitor?.entityId === teamId
       )?.name;
     };
@@ -68,8 +68,8 @@ const handleLatviaChamp = async (url, teamNames, championship) => {
     if (quartersArr?.length > 5) continue;
 
     const fourthQuarterSum = quartersArr[3]
-      .split('-')
-      .reduce((a, b) => Number(a) + Number(b));
+      ?.split('-')
+      ?.reduce((a, b) => Number(a) + Number(b));
 
     const matchScoreDiff = matchFixture?.competitors
       ?.map(competitor => Number(competitor?.score))
@@ -94,7 +94,7 @@ const handleLatviaChamp = async (url, teamNames, championship) => {
       const cellN = cellE * 2 + cellG * 3 + cellI;
       const cellP = +(cellN / cellM).toFixed(2);
       const cellQ =
-        quartersArr.length === 5
+        quartersArr?.length === 5
           ? 'OT'
           : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
           ? 'FS'

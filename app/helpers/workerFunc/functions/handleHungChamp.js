@@ -16,7 +16,7 @@ const handleHungChamp = async (url, teamNames, championship) => {
 
     const response = await axios.get(address);
 
-    const currentPage = response.data;
+    const currentPage = response?.data;
     const dom = new JSDOM(currentPage);
 
     const mainDiv = dom.window.document.getElementById('boxscore_top');
@@ -66,8 +66,8 @@ const handleHungChamp = async (url, teamNames, championship) => {
       const teamName = handleTeamName(teamNames, teamNameBeforeCheck);
 
       const tableFooter = tableDiv?.children[1]?.tFoot?.rows[0]?.cells;
-      const tableFooterNum = Array.from(tableFooter).map(el =>
-        Number(el.textContent)
+      const tableFooterNum = Array.from(tableFooter)?.map(el =>
+        Number(el?.textContent)
       );
 
       const cellE = tableFooterNum[4] + tableFooterNum[7];

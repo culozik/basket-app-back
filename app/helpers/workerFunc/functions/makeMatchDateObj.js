@@ -43,6 +43,23 @@ const makeMatchDateObj = (data, championship) => {
     dateObj.day = day.length === 1 ? 0 + day : day;
     dateObj.month = month.length === 1 ? 0 + month : month;
     dateObj.year = data.getFullYear().toString().slice(-2);
+  } else if (championship === 'turkey') {
+    data?.forEach((el, index) => {
+      if (index === 0) {
+        dateObj.day = el?.length === 1 ? 0 + el : el;
+        return;
+      }
+      if (index === 1) {
+        const val = monthToNumber(el);
+        dateObj.month = val;
+        return;
+      }
+      if (index === 2) {
+        const val = el.slice(2, 4);
+        dateObj.year = val;
+        return;
+      }
+    });
   }
 
   return dateObj;
