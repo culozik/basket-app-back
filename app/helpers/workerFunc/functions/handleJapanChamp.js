@@ -56,7 +56,7 @@ const handleJapanChamp = async (url, teamNames, championship) => {
     const matchScoreDiff = Array.from(headCount)
       ?.map(item => Number(item?.textContent?.trim('\n')))
       ?.sort((a, b) => b - a)
-      ?.reduce((a, b) => Number(a) - Number(b));
+      ?.reduce((a, b) => Number.parseInt(a) - Number.parseInt(b));
 
     const quartersDiv =
       dom.window.document.getElementsByClassName('col-md-12')[0]?.children[0]
@@ -75,10 +75,10 @@ const handleJapanChamp = async (url, teamNames, championship) => {
 
     const fourthQuarterSum = homeTeamQuarters[3] + awayTeamQuarters[3];
 
-    const dateDiv = mainDiv.item(0).children[9]?.textContent;
+    const dateDiv = mainDiv?.item(0)?.children[9]?.textContent;
     const matchDateArr = dateDiv
       ?.split(' ')[0]
-      .split(/\D/)
+      ?.split(/\D/)
       ?.filter(item => item?.length > 0);
     const matchDate = makeMatchDateObj(matchDateArr, championship);
 
