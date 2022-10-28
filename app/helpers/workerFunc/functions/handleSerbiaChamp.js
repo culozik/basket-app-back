@@ -5,7 +5,7 @@ const handleTeamName = require('./handleTeamName.js');
 
 const LINK = {
   champ: 'https://lige.kss.rs/seniori',
-  query: 'https://lige.kss.rs/seniori/2-muska-liga/?%7Ew=f%7E',
+  query: 'https://lige.kss.rs/seniori/2-muska-liga/?&~w=f~',
 };
 const TYPE = {
   H: 'home',
@@ -31,7 +31,7 @@ const handleSerbiaChamp = async (url, teamNames, championship) => {
     };
 
     const getTeamNameBeforeCheck = teamId => {
-      return matchFixture?.competitors.find(
+      return matchFixture?.competitors?.find(
         competitor => competitor?.entityId === teamId
       )?.name;
     };
@@ -85,7 +85,7 @@ const handleSerbiaChamp = async (url, teamNames, championship) => {
       const cellN = cellE * 2 + cellG * 3 + cellI;
       const cellP = +(cellN / cellM).toFixed(2);
       const cellQ =
-        quartersArr.length === 5
+        quartersArr?.length === 5
           ? 'OT'
           : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
           ? 'FS'
