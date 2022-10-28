@@ -112,8 +112,6 @@ const handleHungChamp = async (url, teamNames, championship) => {
 
       matchResults.push(tableData);
     }
-    console.log('address   ', address);
-    console.log('matchDate   ', matchDate);
 
     const result = {
       matchDate,
@@ -121,7 +119,6 @@ const handleHungChamp = async (url, teamNames, championship) => {
       matchResults,
     };
     leagueResult.push(result);
-    // console.log('🚀 ~ leagueResult', leagueResult);
   }
   return leagueResult;
 };
