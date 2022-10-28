@@ -38,8 +38,8 @@ const handleHungChamp = async (url, teamNames, championship) => {
       .reduce((a, b) => Number(a) - Number(b));
 
     const quarters = headResult?.children[1]?.textContent
-      .replace(REGEXP.removeBrackets, '')
-      .split(', ');
+      ?.replace(REGEXP.removeBrackets, '')
+      ?.split(',');
 
     if (quarters?.length > 5) {
       continue;
@@ -47,11 +47,15 @@ const handleHungChamp = async (url, teamNames, championship) => {
 
     const fourthQuarterSum =
       quarters &&
-      quarters[3].split('-').reduce((a, b) => Number(a) + Number(b));
+      quarters[3]
+        ?.split('-')
+        ?.reduce(
+          (a, b) => Number.parseInt(a.trim()) + Number.parseInt(b.split())
+        );
 
     const matchDateArr = headCount?.children[0]?.textContent
-      .split(' | ')[0]
-      .split(' ');
+      ?.split(' | ')[0]
+      ?.split(' ');
 
     const matchDate = makeMatchDateObj(matchDateArr, championship);
 
@@ -108,6 +112,8 @@ const handleHungChamp = async (url, teamNames, championship) => {
 
       matchResults.push(tableData);
     }
+    console.log('address   ', address);
+    console.log('matchDate   ', matchDate);
 
     const result = {
       matchDate,
@@ -115,6 +121,7 @@ const handleHungChamp = async (url, teamNames, championship) => {
       matchResults,
     };
     leagueResult.push(result);
+    // console.log('🚀 ~ leagueResult', leagueResult);
   }
   return leagueResult;
 };
