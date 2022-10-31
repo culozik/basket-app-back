@@ -9,6 +9,8 @@ const workerRouter = require('./routes/api/parcer');
 
 const app = express();
 
+app.keepAliveTimeout = 500000;
+
 app.use(cors());
 app.use(express.json());
 
