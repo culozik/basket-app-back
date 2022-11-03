@@ -26,6 +26,8 @@ const handleLatviaChamp = async (url, teamNames, championship) => {
       address?.split(`${LINK.national}${LINK.kalendars}`)[1] ||
       address?.split(`${LINK.woman}${LINK.kalendars}`)[1];
 
+    if (!urlString) continue;
+
     const queryNumber = address.startsWith(LINK.national) ? LINK.NN : LINK.WN;
 
     const res = await axios.get(

@@ -5,7 +5,7 @@ const handleTeamName = require('./handleTeamName.js');
 
 const LINK = {
   champ: 'https://lige.kss.rs/seniori',
-  query: 'https://lige.kss.rs/seniori/2-muska-liga/?&~w=f~',
+  query: 'https://lige.kss.rs/seniori/2-muska-liga/?%257Ew=f%257E',
 };
 const TYPE = {
   H: 'home',
@@ -16,8 +16,13 @@ const handleSerbiaChamp = async (url, teamNames, championship) => {
   const leagueResult = [];
 
   for (const address of url) {
-    if (!address.startsWith(LINK.champ)) continue;
-    const urlString = address?.split(LINK.query)[1];
+    const encodeAddress = encodeURI(address);
+
+    if (!encodeAddress.startsWith(LINK.champ)) continue;
+
+    const urlString = encodeAddress?.split(LINK.query)[1];
+
+    if (!urlString) continue;
 
     const res = await axios.get(
       `https://eapi.web.prod.cloud.atriumsports.com/v1/embed/163/fixture_detail?state=${urlString}`
