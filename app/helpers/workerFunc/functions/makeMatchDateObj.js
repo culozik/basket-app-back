@@ -6,6 +6,7 @@ const makeMatchDateObj = (data, championship) => {
     month: '',
     year: '',
   };
+
   if (championship === 'hungary' || championship === 'japan') {
     data?.forEach((el, index) => {
       if (index === 0) {
@@ -43,14 +44,19 @@ const makeMatchDateObj = (data, championship) => {
     dateObj.day = day.length === 1 ? 0 + day : day;
     dateObj.month = month.length === 1 ? 0 + month : month;
     dateObj.year = data.getFullYear().toString().slice(-2);
-  } else if (championship === 'turkey') {
+  } else if (championship === 'turkey' || championship === 'brazil') {
     data?.forEach((el, index) => {
       if (index === 0) {
         dateObj.day = el?.length === 1 ? 0 + el : el;
         return;
       }
-      if (index === 1) {
+      if (index === 1 && championship === 'turkey') {
         const val = monthToNumber(el);
+        dateObj.month = val;
+        return;
+      }
+      if (index === 1 && championship === 'brazil') {
+        const val = el?.length === 1 ? 0 + el : el;
         dateObj.month = val;
         return;
       }
