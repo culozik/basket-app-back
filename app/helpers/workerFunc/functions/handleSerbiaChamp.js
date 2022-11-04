@@ -12,14 +12,24 @@ const TYPE = {
   A: 'away',
 };
 
+const REPLACE_STR = {
+  tilde: '%257E',
+  and: '/?',
+};
+
+const REGEXP = {
+  tilde: /~/gi,
+  and: /\?&/,
+};
+
 const handleSerbiaChamp = async (url, teamNames, championship) => {
   const leagueResult = [];
 
   for (const address of url) {
-    const encodeAddress = encodeURI(address);
-
+    const encodeAddress = encodeURI(address)
+      ?.replaceAll(REGEXP.tilde, REPLACE_STR.tilde)
+      ?.replace(REGEXP.and, REPLACE_STR.and);
     if (!encodeAddress.startsWith(LINK.champ)) continue;
-
     const urlString = encodeAddress?.split(LINK.query)[1];
 
     if (!urlString) continue;

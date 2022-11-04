@@ -76,16 +76,14 @@ const handleBrazilChamp = async (url, teamNames, championship) => {
       }
 
       const quartersArr = Array.from(quarters)?.map(item => {
-        const homeQuarterScore = Number.parseInt(
-          item?.children[0]?.textContent?.trim()
-        );
-        const awayQuarterScore = Number.parseInt(
-          item?.children[2]?.textContent?.trim()
-        );
-        return [homeQuarterScore, awayQuarterScore];
+        const homeQuarterScore = item?.children[0]?.textContent?.trim();
+        const awayQuarterScore = item?.children[2]?.textContent?.trim();
+        return `${homeQuarterScore}-${awayQuarterScore}`;
       });
 
-      const fourthQuarterSum = quartersArr[3]?.reduce((a, b) => a + b);
+      const fourthQuarterSum = quartersArr[3]
+        ?.split('-')
+        ?.reduce((a, b) => Number.parseInt(a) + Number.parseInt(b));
 
       const matchDateArr = dom
         ?.getElementsByClassName('infos_real_time_table')
