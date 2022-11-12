@@ -52,8 +52,8 @@ const handleSpainChamp = async (url, teamNames, championship) => {
       const fourthQuarterSum =
         quatres &&
         quatres[3]?.children[1]?.textContent
-          .split('/')
-          .reduce((a, b) => Number.parseInt(a) + Number.parseInt(b));
+          ?.split('/')
+          ?.reduce((a, b) => Number.parseInt(a) + Number.parseInt(b));
 
       const matchDateArr = dom
         .getElementsByClassName('box-datos-partido')
@@ -65,7 +65,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
       const teamNamesArrayDom = dom.getElementsByClassName('titulo-modulo');
       const tablesDivArr = dom.getElementsByClassName('responsive-scroll');
 
-      const teamNamesArray = Array.from(teamNamesArrayDom).map(name => {
+      const teamNamesArray = Array.from(teamNamesArrayDom)?.map(name => {
         const teamNameBeforeCheck = name?.textContent?.trim();
         const teamName = handleTeamName(teamNames, teamNameBeforeCheck);
         return teamName;

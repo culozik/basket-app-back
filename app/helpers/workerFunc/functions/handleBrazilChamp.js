@@ -11,7 +11,9 @@ const handleBrazilChamp = async (url, teamNames, championship) => {
   const getTeamStats = (data, string) => {
     const stats = data?.getElementById(string)?.children[2]?.tBodies?.item(1)
       ?.rows[0]?.cells;
-    const statsArr = Array.from(stats)?.map(item => item?.textContent.trim());
+    const statsArr = stats
+      ? Array.from(stats)?.map(item => item?.textContent.trim())
+      : [];
     return statsArr;
   };
 
@@ -19,7 +21,8 @@ const handleBrazilChamp = async (url, teamNames, championship) => {
     const stats = data
       ?.getElementById(string)
       ?.children[2]?.tBodies?.item(0)?.rows;
-    if (type === 'RO') {
+
+    if (type === 'RO' && stats) {
       const resultROSum = Array.from(stats)
         ?.map(item =>
           Number.parseInt(
@@ -31,11 +34,12 @@ const handleBrazilChamp = async (url, teamNames, championship) => {
           )
         )
         ?.reduce((prev, current) => prev + current, 0);
-
       return resultROSum;
+    } else if (type === 'RO' && !stats) {
+      return 0;
     }
 
-    if (type === 'ER') {
+    if (type === 'ER' && stats) {
       const resultROSum = Array.from(stats)
         ?.map(item =>
           Number.parseInt(item?.cells?.item(14)?.textContent?.trim())
@@ -43,6 +47,8 @@ const handleBrazilChamp = async (url, teamNames, championship) => {
         ?.reduce((prev, current) => prev + current, 0);
 
       return resultROSum;
+    } else if (type === 'ER' && !stats) {
+      return 0;
     }
   };
 
