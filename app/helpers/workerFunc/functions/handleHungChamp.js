@@ -50,7 +50,8 @@ const handleHungChamp = async (url, teamNames, championship) => {
 
       const matchDateArr = headCount?.children[0]?.textContent
         ?.split(' | ')[0]
-        ?.split(' ');
+        ?.split(' ')
+        ?.map(item => item?.split('.')[0]);
 
       const matchDate = makeMatchDateObj(matchDateArr, championship);
 

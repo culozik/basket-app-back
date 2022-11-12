@@ -14,7 +14,7 @@ const TYPE = {
 
 const REPLACE_STR = {
   tilde: '%257E',
-  and: '/?',
+  and: '?',
 };
 
 const REGEXP = {
@@ -29,6 +29,7 @@ const handleSerbiaChamp = async (url, teamNames, championship) => {
     const encodeAddress = encodeURI(address)
       ?.replaceAll(REGEXP.tilde, REPLACE_STR.tilde)
       ?.replace(REGEXP.and, REPLACE_STR.and);
+
     if (!encodeAddress.startsWith(LINK.champ)) continue;
     const urlString = encodeAddress?.split(LINK.query)[1];
 
