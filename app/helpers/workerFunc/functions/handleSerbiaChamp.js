@@ -10,6 +10,8 @@ const LINK = {
 const TYPE = {
   H: 'home',
   A: 'away',
+  ID: 'entityId',
+  NAME: 'name',
 };
 
 const REPLACE_STR = {
@@ -42,20 +44,16 @@ const handleSerbiaChamp = async (url, teamNames, championship) => {
     const matchData = res?.data?.data;
     const matchFixture = matchData?.fixture;
 
-    const getTeamId = type => {
-      return matchData?.statistics[type]?.persons[0]?.entityId;
-    };
-
-    const getTeamNameBeforeCheck = teamId => {
+    const getTeamData = (bool, key) => {
       return matchFixture?.competitors?.find(
-        competitor => competitor?.entityId === teamId
-      )?.name;
+        competitor => competitor?.isHome === bool
+      )?.[key];
     };
 
-    const homeTeamId = getTeamId(TYPE.H);
-    const awayTeamId = getTeamId(TYPE.A);
-    const homeTeamNameBeforeCheck = getTeamNameBeforeCheck(homeTeamId);
-    const awayTeamNameBeforeCheck = getTeamNameBeforeCheck(awayTeamId);
+    const homeTeamId = getTeamData(true, TYPE.ID);
+    const awayTeamId = getTeamData(false, TYPE.ID);
+    const homeTeamNameBeforeCheck = getTeamData(true, TYPE.NAME);
+    const awayTeamNameBeforeCheck = getTeamData(false, TYPE.NAME);
     const homeTeamName = handleTeamName(teamNames, homeTeamNameBeforeCheck);
     const awayTeamName = handleTeamName(teamNames, awayTeamNameBeforeCheck);
 
