@@ -134,7 +134,7 @@ const handleBrazilChamp = async (url, teamNames, championship) => {
         const cellQ =
           quarters.length === 5
             ? 'OT'
-            : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
+            : (matchScoreDiff <= 10) & (fourthQuarterSum > 45)
             ? 'FS'
             : '';
         const teamResult = {

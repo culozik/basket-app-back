@@ -121,7 +121,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
         const cellQ =
           quatres.length === 5
             ? 'OT'
-            : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
+            : (matchScoreDiff <= 10) & (fourthQuarterSum > 45)
             ? 'FS'
             : '';
 

@@ -96,7 +96,7 @@ const handleLatviaChamp = async (url, teamNames, championship) => {
       const cellQ =
         quartersArr?.length === 5
           ? 'OT'
-          : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
+          : (matchScoreDiff <= 10) & (fourthQuarterSum > 45)
           ? 'FS'
           : '';
 
