@@ -24,8 +24,9 @@ const REGEXP = {
   and: /\?&/,
 };
 
-const handleSerbiaChamp = async (url, teamNames, championship) => {
+const handleSerbiaChamp = async (url, teamNames, championship, league) => {
   const leagueResult = [];
+  const quarterSumCheck = league?.includes('(W)') ? 40 : 45;
 
   for (const address of url) {
     const encodeAddress = encodeURI(address)
@@ -101,7 +102,7 @@ const handleSerbiaChamp = async (url, teamNames, championship) => {
       const cellQ =
         quartersArr?.length === 5
           ? 'OT'
-          : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
+          : (matchScoreDiff <= 10) & (fourthQuarterSum > quarterSumCheck)
           ? 'FS'
           : '';
 

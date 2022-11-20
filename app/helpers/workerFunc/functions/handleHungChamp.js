@@ -7,8 +7,9 @@ const handleTeamName = require('./handleTeamName.js');
 
 const LINK = 'https://hunbasket.hu';
 
-const handleHungChamp = async (url, teamNames, championship) => {
+const handleHungChamp = async (url, teamNames, championship, league) => {
   const leagueResult = [];
+  const quarterSumCheck = league?.includes('(W)') ? 40 : 45;
   for (const address of url) {
     const matchResults = [];
     if (!address.startsWith(LINK)) continue;
@@ -85,7 +86,7 @@ const handleHungChamp = async (url, teamNames, championship) => {
         const cellQ =
           quarters.length === 5
             ? 'OT'
-            : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
+            : (matchScoreDiff <= 10) & (fourthQuarterSum > quarterSumCheck)
             ? 'FS'
             : '';
 

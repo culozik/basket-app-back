@@ -20,25 +20,60 @@ const handleUrlParser = async (dataToParse = []) => {
     };
 
     if (championship === 'hungary') {
-      const parseResult = await handleHungChamp(url, teamNames, championship);
+      const parseResult = await handleHungChamp(
+        url,
+        teamNames,
+        championship,
+        league
+      );
       leagueData.parsedData = [...parseResult];
     } else if (championship === 'spain') {
-      const parseResult = await handleSpainChamp(url, teamNames, championship);
+      const parseResult = await handleSpainChamp(
+        url,
+        teamNames,
+        championship,
+        league
+      );
       leagueData.parsedData = [...parseResult];
     } else if (championship === 'latvia') {
-      const parseResult = await handleLatviaChamp(url, teamNames, championship);
+      const parseResult = await handleLatviaChamp(
+        url,
+        teamNames,
+        championship,
+        league
+      );
       leagueData.parsedData = [...parseResult];
     } else if (championship === 'japan') {
-      const parseResult = await handleJapanChamp(url, teamNames, championship);
+      const parseResult = await handleJapanChamp(
+        url,
+        teamNames,
+        championship,
+        league
+      );
       leagueData.parsedData = [...parseResult];
     } else if (championship === 'serbia') {
-      const parseResult = await handleSerbiaChamp(url, teamNames, championship);
+      const parseResult = await handleSerbiaChamp(
+        url,
+        teamNames,
+        championship,
+        league
+      );
       leagueData.parsedData = [...parseResult];
     } else if (championship === 'turkey') {
-      const parseResult = await handleTurkeyChamp(url, teamNames, championship);
+      const parseResult = await handleTurkeyChamp(
+        url,
+        teamNames,
+        championship,
+        league
+      );
       leagueData.parsedData = [...parseResult];
     } else if (championship === 'brazil') {
-      const parseResult = await handleBrazilChamp(url, teamNames, championship);
+      const parseResult = await handleBrazilChamp(
+        url,
+        teamNames,
+        championship,
+        league
+      );
       leagueData.parsedData = [...parseResult];
     } else {
       console.log('Nothing');

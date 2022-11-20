@@ -5,8 +5,9 @@ const handleTeamName = require('./handleTeamName');
 
 const LINK = 'https://lnb.com.br/';
 
-const handleBrazilChamp = async (url, teamNames, championship) => {
+const handleBrazilChamp = async (url, teamNames, championship, league) => {
   const leagueResult = [];
+  const quarterSumCheck = league?.includes('(W)') ? 40 : 45;
 
   const getTeamStats = (data, string) => {
     const stats = data?.getElementById(string)?.children[2]?.tBodies?.item(1)
@@ -134,7 +135,7 @@ const handleBrazilChamp = async (url, teamNames, championship) => {
         const cellQ =
           quarters.length === 5
             ? 'OT'
-            : (matchScoreDiff < 10) & (fourthQuarterSum > 45)
+            : (matchScoreDiff <= 10) & (fourthQuarterSum > quarterSumCheck)
             ? 'FS'
             : '';
         const teamResult = {
