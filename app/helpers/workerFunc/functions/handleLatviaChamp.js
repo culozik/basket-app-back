@@ -18,8 +18,9 @@ const TYPE = {
   NAME: 'name',
 };
 
-const handleLatviaChamp = async (url, teamNames, championship) => {
+const handleLatviaChamp = async (url, teamNames, championship, league) => {
   const leagueResult = [];
+  const quarterSumCheck = league?.includes('(W)') ? 40 : 45;
   for (const address of url) {
     if (!address.startsWith(LINK.national) && !address.startsWith(LINK.woman))
       continue;
@@ -96,7 +97,7 @@ const handleLatviaChamp = async (url, teamNames, championship) => {
       const cellQ =
         quartersArr?.length === 5
           ? 'OT'
-          : (matchScoreDiff <= 10) & (fourthQuarterSum > 45)
+          : (matchScoreDiff <= 10) & (fourthQuarterSum > quarterSumCheck)
           ? 'FS'
           : '';
 

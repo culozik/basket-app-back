@@ -6,8 +6,9 @@ const handleTeamName = require('./handleTeamName.js');
 
 const LINK = 'https://baloncestoenvivo';
 
-const handleSpainChamp = async (url, teamNames, championship) => {
+const handleSpainChamp = async (url, teamNames, championship, league) => {
   const leagueResult = [];
+  const quarterSumCheck = league?.includes('(W)') ? 40 : 45;
 
   for (const address of url) {
     const matchResultsWithoutNames = [];
@@ -121,7 +122,7 @@ const handleSpainChamp = async (url, teamNames, championship) => {
         const cellQ =
           quatres.length === 5
             ? 'OT'
-            : (matchScoreDiff <= 10) & (fourthQuarterSum > 45)
+            : (matchScoreDiff <= 10) & (fourthQuarterSum > quarterSumCheck)
             ? 'FS'
             : '';
 

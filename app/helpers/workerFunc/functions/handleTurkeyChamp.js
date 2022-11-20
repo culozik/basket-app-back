@@ -9,8 +9,9 @@ const LINK = {
   SL: 'https://www.tbf.org.tr',
 };
 
-const handleTurkeyChamp = async (url, teamNames, championship) => {
+const handleTurkeyChamp = async (url, teamNames, championship, league) => {
   const leagueResult = [];
+  const quarterSumCheck = league?.includes('(W)') ? 40 : 45;
   const filterFunc = index => {
     let check = false;
     switch (index) {
@@ -136,7 +137,7 @@ const handleTurkeyChamp = async (url, teamNames, championship) => {
         const cellQ =
           quartersArr.length === 5
             ? 'OT'
-            : (matchScoreDiff <= 10) & (fourthQuarterSum > 45)
+            : (matchScoreDiff <= 10) & (fourthQuarterSum > quarterSumCheck)
             ? 'FS'
             : '';
 

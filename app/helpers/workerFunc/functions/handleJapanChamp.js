@@ -6,8 +6,9 @@ const handleTeamName = require('./handleTeamName.js');
 
 const LINK = 'https://www.b3league.jp/';
 
-const handleJapanChamp = async (url, teamNames, championship) => {
+const handleJapanChamp = async (url, teamNames, championship, league) => {
   const leagueResult = [];
+  const quarterSumCheck = league?.includes('(W)') ? 40 : 45;
   const getJapanTeamQuarters = (data, index) => {
     return Array.from(data[index].cells)
       ?.filter(item => Number.parseInt(item.textContent))
@@ -126,7 +127,7 @@ const handleJapanChamp = async (url, teamNames, championship) => {
         const cellQ =
           quartersArr.length === 5
             ? 'OT'
-            : (matchScoreDiff <= 10) & (fourthQuarterSum > 45)
+            : (matchScoreDiff <= 10) & (fourthQuarterSum > quarterSumCheck)
             ? 'FS'
             : '';
 
